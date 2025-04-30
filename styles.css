@@ -1,118 +1,156 @@
-/* General reset */
-* {
+/* Root CSS variables for theme colors, fonts, and sizing */
+:root {
+    --color-bg: #ffffff;
+    --color-text: #222222;
+    --color-accent: #0066cc;       /* Accent color for links in light mode */
+    --font-body: 'Inter', sans-serif;
+    --max-width: 1200px;
+    --spacing: 1.5rem;
+    --spacing-lg: 3rem;
+    /* Fluid typography: clamp(min, vw-based, max) for responsive scaling */
+    --fs-h1: clamp(2rem, 6vw, 4rem);   /* Site title */
+    --fs-h2: clamp(1.5rem, 5vw, 2.5rem); /* Section headings */
+    --fs-body: clamp(1rem, 2vw, 1.125rem); /* Base text size scales slightly */
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #121212;
+      --color-text: #e0e0e0;
+      --color-accent: #4DABF7;    /* Lighter accent for dark mode for contrast */
+    }
+  }
+  
+  /* Apply background and text colors */
+  body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-header {
-    background-color: #0078D4;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-
-main {
-    flex: 1; /* Makes the main section take up available space */
-    padding: 20px;
-}
-
-/* About Section Styling */
-.about-section {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.about-section h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #000000;
-}
-
-.about-section p {
-    font-size: 16px;
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    color: var(--color-text);
+    background: var(--color-bg);
     line-height: 1.6;
-    color: #333;
-}
-
-.about-section strong {
-    color: #0056b3;
-    font-size: 18px;
-}
-
-/* General Section Titles */
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* List Styling */
-ul {
-    list-style-type: none;
-    padding: 0;
-    max-width: 400px;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* Center content and apply max-width for readability */
+  main {
+    max-width: var(--max-width);
     margin: 0 auto;
-}
-
-li {
-    background: white;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.log-link {
-    color: #0078D4;
+    padding: var(--spacing) var(--spacing);
+    display: grid;
+    grid-template-columns: 1fr;            /* one column by default (mobile-first) */
+    grid-template-areas: 
+      "about"
+      "members"
+      "deliverables";
+    row-gap: var(--spacing-lg);
+  }
+  
+  /* Two-column layout on wider screens: members and deliverables side by side */
+  @media (min-width: 900px) {
+    main {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 
+        "about  about"
+        "members deliverables";
+      column-gap: var(--spacing-lg);
+    }
+  }
+  
+  /* Assign grid areas to sections */
+  #about       { grid-area: about; }
+  #members     { grid-area: members; }
+  #deliverables{ grid-area: deliverables; }
+  
+  /* Section styling */
+  section {
+    padding: var(--spacing) 0;
+  }
+  section h2 {
+    font-size: var(--fs-h2);
+    margin: 0 0 0.5em;
+    font-weight: 600;
+  }
+  /* Paragraphs */
+  section p {
+    margin: 0.5em 0 0;
+    max-width: 75ch; /* limit line length for readability */
+  }
+  
+  /* Header (site title) styling */
+  header {
+    max-width: var(--max-width);
+    margin: 0 auto var(--spacing); /* center header content */
+    padding: var(--spacing) var(--spacing) 0;
+  }
+  header h1 {
+    font-size: var(--fs-h1);
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-accent); /* make the project name in accent color */
+  }
+  
+  /* Lists styling */
+  ul {
+    margin: 0.5em 0 0;
+    padding-left: 1.2em;
+  }
+  ul li {
+    margin: 0.5em 0;
+  }
+  /* If desired, we could customize list bullets or use icons. 
+     For simplicity, default bullets are used for clarity. */
+  
+  /* Link styles */
+  a {
+    color: var(--color-accent);
     text-decoration: none;
-    font-weight: bold;
-}
-
-.log-link:hover {
-    text-decoration: underline;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+  }
+  a:hover::after, a:focus::after {
+    width: 100%;
+  }
+  /* Ensure focus outline remains for accessibility (don’t remove it) */
+  a:focus {
+    outline: 2px dashed var(--color-accent);
+    outline-offset: 4px;
+  }
+  
+  /* Footer styling */
+  footer {
+    background: none; /* could use a different bg color if desired */
+    padding: var(--spacing) var(--spacing);
     text-align: center;
-}
-
-.github-logo {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-}
-
-.footer-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Add space between the text and logo */
-}
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+  footer a {
+    font-weight: 600;
+  }
+  footer a:hover::after {
+    /* Underline effect on footer link as well */
+    width: 100%;
+  }
+  
+  /* Scroll-reveal animation styles */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
