@@ -1,28 +1,25 @@
-/* ── Theme & fluid sizing ─────────────────────────────────── */
+/* Theme colors, fonts, and sizing (light & dark mode) */
 :root {
     --color-bg: #ffffff;
     --color-text: #222222;
-    --color-accent: #0066cc;
+    --color-accent: #0066cc; /* Accent color for links and highlights (light mode) */
     --font-body: 'Inter', sans-serif;
-  
     --fs-body: 16px;
-    --fs-h1: clamp(2rem, 6vw, 4rem);
-    --fs-h2: clamp(1.5rem, 5vw, 2.5rem);
-  
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
     --spacing: 1rem;
     --spacing-lg: 2rem;
+    --max-width: 80ch;
   }
-  
   @media (prefers-color-scheme: dark) {
     :root {
       --color-bg: #121212;
       --color-text: #e0e0e0;
-      --color-accent: #4dabf7;
+      --color-accent: #4DABF7; /* Lighter accent for dark mode for better contrast */
     }
   }
   
-  /* ── Base ─────────────────────────────────────────────────── */
-  * { box-sizing: border-box; }
+  /* Base styles */
   body {
     margin: 0;
     font-family: var(--font-body);
@@ -33,38 +30,19 @@
     -webkit-font-smoothing: antialiased;
   }
   
-  /* ── Global 70 % centered layout (≥600 px) ─────────────────── */
-  @media (min-width: 600px) {
-    header,
-    main,
-    footer {
-      width: 70vw;          /* 70 % of viewport width */
-      max-width: 1200px;    /* upper guardrail */
-      margin-inline: auto;  /* 15 % gap each side */
-    }
-  }
-  
-  /* ── Header ───────────────────────────────────────────────── */
-  header { padding: var(--spacing) 0; }
-  header h1 {
-    font-size: var(--fs-h1);
-    margin: 0;
-    font-weight: 600;
-    color: var(--color-accent);
-  }
-  
-  /* ── Main grid ────────────────────────────────────────────── */
+  /* Layout: center content with a max width */
   main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing) var(--spacing);
     display: grid;
-    grid-template-columns: 1fr;        /* mobile-first */
+    grid-template-columns: 1fr;  /* single-column layout by default (mobile-first) */
     grid-template-areas:
       "about"
       "members"
       "deliverables";
     row-gap: var(--spacing-lg);
-    padding: 0 var(--spacing);
   }
-  
   @media (min-width: 900px) {
     main {
       grid-template-columns: 1fr 1fr;
@@ -74,37 +52,61 @@
       column-gap: var(--spacing-lg);
     }
   }
+  /* Assign grid areas to sections */
+  #about       { grid-area: about; }
+  #members     { grid-area: members; }
+  #deliverables{ grid-area: deliverables; }
   
-  /* Assign grid areas */
-  #about        { grid-area: about; }
-  #members      { grid-area: members; }
-  #deliverables { grid-area: deliverables; }
-  
-  /* ── Sections ─────────────────────────────────────────────── */
-  section { padding: var(--spacing) 0; }
+  /* Section styling */
+  section {
+    padding: var(--spacing) 0;
+  }
   section h2 {
     font-size: var(--fs-h2);
     margin: 0 0 0.5em;
     font-weight: 600;
   }
-  section p { max-width: 75ch; }
   
-  /* ── Lists ────────────────────────────────────────────────── */
-  ul { padding-left: 1.2em; margin: 0.5em 0 0; }
-  ul li { margin: 0.5em 0; }
-  
-  .members-list,
-  .deliverables-list {
-    list-style: none;
-    padding-left: 0;        /* icons replace bullets */
+  /* Paragraphs within sections */
+  section p {
+    margin: 0.5em 0 0;
+    max-width: 75ch; /* limit line length for readability */
   }
   
+  /* Header (site title) styling */
+  header {
+    max-width: var(--max-width);
+    margin: 0 auto var(--spacing);
+    padding: var(--spacing) var(--spacing) 0;
+  }
+  header h1 {
+    font-size: var(--fs-h1);
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-accent); /* project name in accent color */
+  }
+  
+  /* List styling */
+  ul {
+    margin: 0.5em 0 0;
+    padding-left: 1.2em;
+  }
+  ul li {
+    margin: 0.5em 0;
+  }
+  /* Use icons instead of default bullets for specific lists */
+  .members-list,
+  .deliverables-list {
+    list-style: none;  /* remove default bullet markers */
+    padding-left: 1.2em;  /* maintain indentation consistent with other lists */
+  }
+  /* Inline icon styling */
   .icon-inline {
-    margin-right: 0.35em;
+    margin-right: 0.3em;
     vertical-align: middle;
   }
   
-  /* ── Links & hover underline ──────────────────────────────── */
+  /* Link styles */
   a {
     color: var(--color-accent);
     text-decoration: none;
@@ -122,20 +124,32 @@
     transition: width 0.3s ease;
   }
   a:hover::after,
-  a:focus::after { width: 100%; }
+  a:focus::after {
+    width: 100%;
+  }
+  /* Preserve focus outline for accessibility */
   a:focus {
     outline: 2px dashed var(--color-accent);
     outline-offset: 4px;
   }
   
-  /* ── Footer ──────────────────────────────────────────────── */
+  /* Footer styling */
   footer {
+    padding: var(--spacing) var(--spacing);
     text-align: center;
     font-size: 0.9rem;
-    padding: var(--spacing-lg) var(--spacing) var(--spacing);
+    background: none;
+    color: var(--color-text);
+  }
+  footer a {
+    font-weight: 600;
+  }
+  footer a:hover::after {
+    /* Ensure underline effect on footer link as well */
+    width: 100%;
   }
   
-  /* ── Scroll-reveal animation ─────────────────────────────── */
+  /* Scroll-reveal animation styles */
   .reveal {
     opacity: 0;
     transform: translateY(20px);
