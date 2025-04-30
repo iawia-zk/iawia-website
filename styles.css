@@ -1,27 +1,25 @@
-/* Root CSS variables for theme colors, fonts, and sizing */
+/* Theme colors, fonts, and sizing (light & dark mode) */
 :root {
     --color-bg: #ffffff;
     --color-text: #222222;
-    --color-accent: #0066cc;       /* Accent color for links in light mode */
+    --color-accent: #0066cc; /* Accent color for links and highlights (light mode) */
     --font-body: 'Inter', sans-serif;
-    --max-width: 1200px;
-    --spacing: 1.5rem;
-    --spacing-lg: 3rem;
-    /* Fluid typography: clamp(min, vw-based, max) for responsive scaling */
-    --fs-h1: clamp(2rem, 6vw, 4rem);   /* Site title */
-    --fs-h2: clamp(1.5rem, 5vw, 2.5rem); /* Section headings */
-    --fs-body: clamp(1rem, 2vw, 1.125rem); /* Base text size scales slightly */
+    --fs-body: 16px;
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
+    --spacing: 1rem;
+    --spacing-lg: 2rem;
+    --max-width: 60ch;
   }
-  
   @media (prefers-color-scheme: dark) {
     :root {
       --color-bg: #121212;
       --color-text: #e0e0e0;
-      --color-accent: #4DABF7;    /* Lighter accent for dark mode for contrast */
+      --color-accent: #4DABF7; /* Lighter accent for dark mode for better contrast */
     }
   }
   
-  /* Apply background and text colors */
+  /* Base styles */
   body {
     margin: 0;
     font-family: var(--font-body);
@@ -32,31 +30,28 @@
     -webkit-font-smoothing: antialiased;
   }
   
-  /* Center content and apply max-width for readability */
+  /* Layout: center content with a max width */
   main {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: var(--spacing) var(--spacing);
     display: grid;
-    grid-template-columns: 1fr;            /* one column by default (mobile-first) */
-    grid-template-areas: 
+    grid-template-columns: 1fr;  /* single-column layout by default (mobile-first) */
+    grid-template-areas:
       "about"
       "members"
       "deliverables";
     row-gap: var(--spacing-lg);
   }
-  
-  /* Two-column layout on wider screens: members and deliverables side by side */
   @media (min-width: 900px) {
     main {
       grid-template-columns: 1fr 1fr;
-      grid-template-areas: 
-        "about  about"
+      grid-template-areas:
+        "about about"
         "members deliverables";
       column-gap: var(--spacing-lg);
     }
   }
-  
   /* Assign grid areas to sections */
   #about       { grid-area: about; }
   #members     { grid-area: members; }
@@ -71,7 +66,8 @@
     margin: 0 0 0.5em;
     font-weight: 600;
   }
-  /* Paragraphs */
+  
+  /* Paragraphs within sections */
   section p {
     margin: 0.5em 0 0;
     max-width: 75ch; /* limit line length for readability */
@@ -80,17 +76,17 @@
   /* Header (site title) styling */
   header {
     max-width: var(--max-width);
-    margin: 0 auto var(--spacing); /* center header content */
+    margin: 0 auto var(--spacing);
     padding: var(--spacing) var(--spacing) 0;
   }
   header h1 {
     font-size: var(--fs-h1);
     font-weight: 600;
     margin: 0;
-    color: var(--color-accent); /* make the project name in accent color */
+    color: var(--color-accent); /* project name in accent color */
   }
   
-  /* Lists styling */
+  /* List styling */
   ul {
     margin: 0.5em 0 0;
     padding-left: 1.2em;
@@ -98,8 +94,17 @@
   ul li {
     margin: 0.5em 0;
   }
-  /* If desired, we could customize list bullets or use icons. 
-     For simplicity, default bullets are used for clarity. */
+  /* Use icons instead of default bullets for specific lists */
+  .members-list,
+  .deliverables-list {
+    list-style: none;  /* remove default bullet markers */
+    padding-left: 1.2em;  /* maintain indentation consistent with other lists */
+  }
+  /* Inline icon styling */
+  .icon-inline {
+    margin-right: 0.3em;
+    vertical-align: middle;
+  }
   
   /* Link styles */
   a {
@@ -118,10 +123,11 @@
     background: var(--color-accent);
     transition: width 0.3s ease;
   }
-  a:hover::after, a:focus::after {
+  a:hover::after,
+  a:focus::after {
     width: 100%;
   }
-  /* Ensure focus outline remains for accessibility (don’t remove it) */
+  /* Preserve focus outline for accessibility */
   a:focus {
     outline: 2px dashed var(--color-accent);
     outline-offset: 4px;
@@ -129,17 +135,17 @@
   
   /* Footer styling */
   footer {
-    background: none; /* could use a different bg color if desired */
     padding: var(--spacing) var(--spacing);
     text-align: center;
     font-size: 0.9rem;
+    background: none;
     color: var(--color-text);
   }
   footer a {
     font-weight: 600;
   }
   footer a:hover::after {
-    /* Underline effect on footer link as well */
+    /* Ensure underline effect on footer link as well */
     width: 100%;
   }
   
