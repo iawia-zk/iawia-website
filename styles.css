@@ -7,7 +7,6 @@
     --fs-body: 16px;
     --fs-h1: 2rem;
     --fs-h2: 1.5rem;
-    --max-width: 60ch;          /* old — ~600-700 px */
     --max-width: clamp(70ch, 90vw, 1200px);
     --spacing: 1rem;
     --spacing-lg: 2rem;
