@@ -1,16 +1,18 @@
 /* Theme colors, fonts, and sizing (light & dark mode) */
-:root {
+  :root {
     --color-bg: #ffffff;
     --color-text: #222222;
-    --color-accent: #0066cc; /* Accent color for links and highlights (light mode) */
+    --color-accent: #0066cc;
     --font-body: 'Inter', sans-serif;
     --fs-body: 16px;
     --fs-h1: 2rem;
     --fs-h2: 1.5rem;
+    --max-width: 60ch;          /* old — ~600-700 px */
+    --max-width: clamp(70ch, 90vw, 1200px);
     --spacing: 1rem;
     --spacing-lg: 2rem;
-    --max-width: 60ch;
-  }
+ }
+ 
   @media (prefers-color-scheme: dark) {
     :root {
       --color-bg: #121212;
