@@ -26,9 +26,9 @@ layer(base);
   --color-dark-6: #9ca3af;
   --color-dark-7: #d1d5db;
   --color-dark-8: #e5e7eb;
-  --color-primary: #3758f9;
-  --color-blue-dark: #1b44c8;
-  --color-secondary: #13c296;
+  --color-primary: #0a68b9;
+  --color-blue-dark: #78b0f0;
+  --color-secondary: #24ffc5;
   --color-body-color: #637381;
   --color-body-secondary: #8899a8;
   --color-warning: #fbbf24;
@@ -36,6 +36,7 @@ layer(base);
   --color-gray-1: #f9fafb;
   --color-gray-2: #f3f4f6;
   --color-gray-7: #ced4da;
+  --color-background: #252529;
 
   /* Box Shadows */
   --shadow-input: 0px 7px 20px rgba(0, 0, 0, 0.03);
@@ -80,7 +81,7 @@ layer(base);
 }
 
 .sticky #navbarCollapse li > a {
-  @apply text-dark dark:text-white hover:text-primary dark:hover:text-primary hover:opacity-100;
+  @apply text-dark dark:text-white hover:text-secondary dark:hover:text-secondary hover:opacity-100;
 }
 #navbarCollapse li .ud-menu-scroll.active {
   @apply opacity-70;
