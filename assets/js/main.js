@@ -17,10 +17,10 @@
       // === logo change
       if (ud_header.classList.contains("sticky")) {
         document.querySelector(".header-logo").src =
-          "assets/images/logo/logo.svg"
+          "assets/images/logo/logo.png"
       } else {
         document.querySelector(".header-logo").src =
-          "assets/images/logo/logo-white.svg"
+          "assets/images/logo/logo.png"
       }
     }
 
@@ -29,8 +29,8 @@
         // === logo change
         if (ud_header.classList.contains("sticky")) {
           document.querySelector(".header-logo").src =
-            "assets/images/logo/logo-white.svg"
-        } 
+            "assets/images/logo/logo.png"
+        }
       }
     }
 
@@ -137,20 +137,11 @@
 
   // Manual Theme Switch
   const themeSwitch = () => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      return;
-    }
-
     document.documentElement.classList.add('dark');
     localStorage.setItem('theme', 'dark');
   };
 
-  // call theme switch on clicking buttons
-  themeSwitcher.addEventListener('click', () => {
-    themeSwitch();
-  });
+  themeSwitch();
 
   // invoke theme check on initial load
   themeCheck();
